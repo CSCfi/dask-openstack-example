@@ -1,0 +1,12 @@
+---
+
+- name: Install nginx
+  package:
+    name:
+      - nginx
+
+- name: Copy files
+  ansible.builtin.copy:
+    src: html/
+    dest: /var/www/html/
+    mode: 0644
