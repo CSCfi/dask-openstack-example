@@ -6,6 +6,7 @@
 
 - name: Add port 22 opening to ips {{ internal_ips }} to rule {{ instance_name }}
   openstack.cloud.security_group_rule:
+    state: "{{ state }}"
     security_group: "{{ instance_name }}-security-group"
     protocol: tcp
     port_range_min: 22
@@ -16,6 +17,7 @@
 
 - name: Add port 80 opening to rule {{ instance_name }}
   openstack.cloud.security_group_rule:
+    state: "{{ state }}"
     security_group: "{{ instance_name }}-security-group"
     protocol: tcp
     port_range_min: 80
