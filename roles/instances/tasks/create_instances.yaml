@@ -1,7 +1,7 @@
 ## Create instance
 - name: Create instance
   openstack.cloud.server:
-    state: present
+    state: "{{ state }}"
     name: "{{ item }}"
     image: "{{ os_image }}"
     flavor: "{{ flavor }}"
@@ -30,7 +30,7 @@
 ## Assign Floating IP
 - name: Acquiring Floating IP
   openstack.cloud.floating_ip:
-    state: present
+    state: "{{ state }}"
     server: "{{ item.item }}"
     network: "public"
     reuse: true

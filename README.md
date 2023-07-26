@@ -64,6 +64,18 @@ After ansible has run you should have 3 servers running nginx listening in port 
 
 If you change the variables and rerun `ansible-playbook`, ansible will automatically apply the changes. For example, if your current ip (`curl ifconfig.me` will give you your IP) does not belong to the default range of IPs, you will need to change the range of IPs to include yours. As a side note, it is very recommended to always have a narrow range of IPs that are allowed to connect to the port 22/SSH, it adds a good extra layer of security.
 
+## Destroy the cluster
+
+In order to destroy the servers, one must simply run:
+
+```sh
+ansible-playbook \
+	-e key_name=xxxxxx-key \
+	-e network=project_200xxxx \
+	-e state=absent
+	main.yaml
+```
+
 ## Other more complex examples
 
 * <https://github.com/CSCfi/ansible-ftp>
