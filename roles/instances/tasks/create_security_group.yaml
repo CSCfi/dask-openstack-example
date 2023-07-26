@@ -1,12 +1,12 @@
 - name: Create security group
   openstack.cloud.security_group:
     state: present
-    name: "{{ instance_name }}"
+    name: "{{ instance_name }}-security-group"
     description: "Security group for {{ instance_name }}"
 
 - name: Add port 22 opening to ips {{ internal_ips }} to rule {{ instance_name }}
   openstack.cloud.security_group_rule:
-    security_group: "{{ instance_name }}"
+    security_group: "{{ instance_name }}-security-group"
     protocol: tcp
     port_range_min: 22
     port_range_max: 22
@@ -16,7 +16,7 @@
 
 - name: Add port 80 opening to rule {{ instance_name }}
   openstack.cloud.security_group_rule:
-    security_group: "{{ instance_name }}"
+    security_group: "{{ instance_name }}-security-group"
     protocol: tcp
     port_range_min: 80
     port_range_max: 80
