@@ -40,6 +40,8 @@ These are the default values.
 
 ## Launch the playbook
 
+In order to launch the playbook:
+
 ```sh
 ansible-playbook main.yaml
 ```
@@ -48,6 +50,15 @@ It will prompt for:
 
 * The key that you will use to SSH to your instance
 * The network that you will use (Use this command to list the different networks: `openstack network list`)
+
+* Other option is to specify the values in the command line:
+
+```sh
+ansible-playbook \
+	-e key_name=xxxxxx-key \
+	-e network=project_200xxxx \
+	main.yaml
+```
 
 After ansible has run you should have 3 servers running nginx listening in port 80/HTTP (`http://`) serving the same index file as the one in `files/html` of this repository
 
