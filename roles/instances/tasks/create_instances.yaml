@@ -7,7 +7,7 @@
     flavor: "{{ flavor }}"
     key_name: "{{ key_name }}"
     network: "{{ network }}"
-    security_groups: "{{ instance_name }}"
+    security_groups: "{{ instance_name }}-security-group"
     meta:
       hostname: "{{ instance_name }}"
       group: "{{ instance_name }}"
