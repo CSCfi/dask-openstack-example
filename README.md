@@ -1,6 +1,6 @@
 # Ansible Openstack example to install nginx
 
-This repsitory will create some instances (default 3) in Openstack, install nginx, and copy some files to it.
+This repository will use Ansible to create some instances (default 3) in Openstack, install nginx, and copy some files to it. It does not use any external tool (like Terraform or OpenStack Heat), only Ansible.
 
 ## Requirements
 
@@ -12,13 +12,13 @@ In order to run this code you need to first install some tools into your compute
 	pip install ansible
 	```
 
-1. You need the (openstack.cloud collection)[https://docs.ansible.com/ansible/latest/collections/openstack/cloud/index.html]. Type this command:
+1. You need the [openstack.cloud collection](https://docs.ansible.com/ansible/latest/collections/openstack/cloud/index.html). Type this command:
 
 	```sh
 	ansible-galaxy install -r requirements.yml
 	```
 
-1. The latest version of (openstacksdk for Python)[https://pypi.org/project/openstacksdk/] is also required:
+1. The latest version of [openstacksdk for Python](https://pypi.org/project/openstacksdk/) is also required:
 
 	```sh
 	pip install openstacksdk
