@@ -24,6 +24,37 @@
     port_range_max: 80
     remote_ip_prefix: 0.0.0.0/0
 
+- name: Add port all opening to local machines to rule {{ instance_name }}
+  openstack.cloud.security_group_rule:
+    state: "{{ state }}"
+    security_group: "{{ instance_name }}-security-group"
+    protocol: tcp
+    port_range_min: 1
+    port_range_max: 65535
+    remote_ip_prefix: 192.168.1.0/24
+
+- name: Add port 8787 opening to ips {{ internal_ips }} to rule {{ instance_name }}
+  openstack.cloud.security_group_rule:
+    state: "{{ state }}"
+    security_group: "{{ instance_name }}-security-group"
+    protocol: tcp
+    port_range_min: 8787
+    port_range_max: 8787
+    remote_ip_prefix: "{{ item }}"
+  with_items:
+    - "{{ internal_ips }}"
+
+- name: Add port 8786 opening to ips {{ internal_ips }} to rule {{ instance_name }}
+  openstack.cloud.security_group_rule:
+    state: "{{ state }}"
+    security_group: "{{ instance_name }}-security-group"
+    protocol: tcp
+    port_range_min: 8786
+    port_range_max: 8786
+    remote_ip_prefix: "{{ item }}"
+  with_items:
+    - "{{ internal_ips }}"
+
 ## default Security Group
 - openstack.cloud.security_group_rule:
     security_group: "{{ instance_name }}-security-group"

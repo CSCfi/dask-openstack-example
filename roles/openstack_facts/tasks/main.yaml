@@ -7,15 +7,21 @@
   with_items:
     - "{{ instance_name }}"
 
-# - name: Check
-#   debug:
-#     msg: "{{ server_facts }}"
+- name: "Networks configured"
+  set_fact:
+    network_configured: "{{ server_facts.results[0].servers[0].addresses | list }}"
 
+- name: See servers
+  debug:
+    msg: "{{ item.addresses }}"
+  with_items:
+    - "{{ server_facts.results[0].servers }}"
 - name: Building inventory
   add_host:
     name: "{{ item.name }}"
     groups: created_instances
     ansible_host: "{{ item.access_ipv4 }}"
     ansible_user: ubuntu
+    addresses: "{{ item.addresses[network_configured[0]] }}"
   with_items:
     - "{{ server_facts.results[0].servers }}"

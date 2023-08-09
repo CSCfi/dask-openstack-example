@@ -12,10 +12,11 @@
   roles:
     - instances
     - openstack_facts
+    - demo
 
 - name: Configure VMs
   hosts: created_instances
   gather_facts: false
   become: true
   roles:
-    - nginx
+    - dask

@@ -1,0 +1,53 @@
+---
+- name: Install dependencies with apt
+  apt:
+    update_cache: true
+    name:
+      - python3-pip
+
+- name: Install dask
+  pip:
+    name:
+      - dask[complete]
+
+- name: Set master local IP
+  set_fact:
+     scheduler_ip: "{{ item.addr }}"
+  when: item['OS-EXT-IPS:type'] == "fixed"
+  with_items: "{{ hostvars[groups['all'][0]].addresses }}"
+
+- name: See master IP
+  debug:
+    msg: "{{ scheduler_ip }} "
+
+- name: Copy Systemctl service file
+  ansible.builtin.copy:
+    src: dask-scheduler.service
+    dest: /usr/lib/systemd/system/dask-scheduler.service
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Copy Systemctl service file
+  ansible.builtin.template:
+    src: dask-worker.service
+    dest: /usr/lib/systemd/system/dask-worker.service
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Ensure scheduler is started and enabled on boot.
+  service:
+    name: dask-scheduler
+    state: started
+    daemon_reload: true
+    enabled: true
+  delegate_to: "{{groups['all'][0]}}"
+
+- name: Ensure worker is started and enabled on boot.
+  service:
+    name: dask-worker
+    state: started
+    daemon_reload: true
+    enabled: true
+

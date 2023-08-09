@@ -1,0 +1,12 @@
+---
+
+- name: Set master local IP
+  set_fact:
+     scheduler_ip: "{{ hostvars[groups['all'][0]].ansible_host }}"
+
+
+- name: Create demo.py
+  template:
+    src: demo.py
+    dest: demo.py
+    mode: 0755

@@ -1,7 +1,7 @@
 ---
 number_instances: 3
 state: present
-instance_name: test
+instance_name: dask
 os_image: Ubuntu-22.04
 flavor: standard.tiny
 # key_name: <key_name>
