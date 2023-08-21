@@ -1,0 +1,30 @@
+#!/usr/bin/env python3
+#
+from dask.distributed import Client
+
+#
+# Change it to the floating IP of the scheduler
+#
+IP='{{ scheduler_ip }}:8786'
+
+print(f"* Conecting to {IP} ...")
+
+client = Client(f"{IP}")
+
+print("connected")
+
+def square(x):
+        return x ** 2
+
+def neg(x):
+        return -x
+
+A = client.map(square, range(100))
+
+B = client.map(neg, A)
+
+total = client.submit(sum, B)
+
+result = total.result()
+
+print(result)
